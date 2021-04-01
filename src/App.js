@@ -1,8 +1,10 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { GoogleMap, useJsApiLoader, InfoWindow, InfoBox } from '@react-google-maps/api';
-import {EasybaseProvider, useEasybase} from 'easybase-react';
+import { GoogleMap, useJsApiLoader, InfoWindow } from '@react-google-maps/api';
+import { EasybaseProvider, useEasybase } from 'easybase-react';
 import ebconfig from './ebconfig';
+import AddPark from "./AddPark";
+import ParksInfoWindows from "./ParksInfoWindows"
 
 const containerStyle = {
   width: '100%',
@@ -20,7 +22,7 @@ function App() {
     lat: 35,
     lng: -105
   });
-  
+
   function getLocation() {
     function success(position) {
       setCenter({
@@ -45,18 +47,19 @@ function App() {
       getLocation()
       console.log("test .env ici " + process.env.REACT_APP_test)
     }
+
     return <div>
       <EasybaseProvider ebconfig={ebconfig}>
-      <GoogleMap
+        <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
           zoom={7}
           onLoad={onLoad}
         >
-          <ParksInfoWindows/>
+        <ParksInfoWindows />
         </GoogleMap>
-        <AddPark/>
-      </EasybaseProvider>   
+        <AddPark />
+      </EasybaseProvider>
     </div>
   }
   if (loadError) {
@@ -65,42 +68,5 @@ function App() {
   return isLoaded ? renderMap() : <></>
 }
 
-function ParksInfoWindows() {
-  const {Frame,sync, configureFrame} = useEasybase();
 
-  useEffect( ()=> {
-    configureFrame( { tableName:"PARK2SKATE", limit:10 });
-    sync();
-  }, [])
-  return (
-    <div>
-      {Frame().map(ele => 
-      <div> {/*Afficher un css en fonction de type : street, bowl etc */}
-        <InfoWindow 
-      position={{ lat: ele.localisation[0], lng: ele.localisation[1] }}>
-        <h3>{ele.parkname}</h3>
-      </InfoWindow>
-      </div>
-      
-    )}
-    </div>
-    
-  )
-  
-}
-function AddPark() {
-  return (
-    <div>
-      <input type="text" placeholder="name"></input>
-      <input type="number" placeholder="latitude"></input>
-      <input type="number" placeholder="longitude"></input>
-      <select name="parkType" multiple="true">
-        <option value="">you can select multiple options</option>
-        <option value="street">street</option>
-        <option value="bowl">bowl</option>
-      </select>
-      <button>Add a skatepark</button> {/* voir pour modifier aussi*/}
-    </div>
-  )
-}
 export default App;
