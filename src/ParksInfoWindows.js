@@ -1,27 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import {EasybaseProvider, useEasybase} from 'easybase-react';
+import React, { useEffect } from 'react';
+import {useEasybase} from 'easybase-react';
 import {InfoWindow } from '@react-google-maps/api';
 
 export default function ParksInfoWindows() {
-    const {Frame,sync, configureFrame} = useEasybase();
+     const {Frame,sync, configureFrame, useFrameEffect} = useEasybase();
   
-    useEffect( ()=> {
+     useEffect( ()=> {
       configureFrame( { tableName:"PARK2SKATE", limit:10 });
       sync();
-    }, [])
+      //console.log(Frame())
+    }, []) 
+
+   /*  useFrameEffect(() => {
+      //console.log("Frame data changed!");
+    }); */
+
     return (
-      <div>
-        {Frame().map(ele => 
-        <div> {/*Afficher un css en fonction de type : street, bowl etc */}
-          <InfoWindow 
-        position={{ lat: ele.localisation[0], lng: ele.localisation[1] }}>
-          <h3>{ele.parkname}</h3>
-        </InfoWindow>
-        </div>
+       <div>
+         {Frame().map( (ele,i) =>
         
-      )}
+          <InfoWindow 
+        position={{ lat: ele.lat, lng: ele.lng }} key={i}>
+          <div><h3>{ele.parkname} </h3>
+          </div>
+        </InfoWindow>
+      )}  
       </div>
-      
     )
     
   }
