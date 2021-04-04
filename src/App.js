@@ -15,9 +15,6 @@ function App() {
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_AUTH_TOKEN
   })
-
-
-
   //  return 
  // } //fin de rendereMap
   if (loadError) {

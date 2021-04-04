@@ -10,14 +10,7 @@ export default function Container() {
         width: '100%',
         height: '400px',
       };
-    /* const {Frame,sync, configureFrame, useFrameEffect} = useEasybase();
-  
-     useEffect( ()=> {
-      configureFrame( { tableName:"PARK2SKATE", limit:10 });
-      sync();
-    }, []) 
- */
-   
+
     const [center, setCenter] = useState({
         lat: 35,
         lng: -105
@@ -45,7 +38,6 @@ export default function Container() {
         function onLoad(mapInstance) {
           // do something with map Instance
           getLocation()
-          console.log("test .env ici " + process.env.REACT_APP_test)
         }
     return (
         <div>
@@ -68,6 +60,5 @@ export default function Container() {
     <AddPark passer la fonction qui a frame en props 
     et tout virer dans addpark pour faire remonter ici />
         </div>
-        
     )
 }

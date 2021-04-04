@@ -1,17 +1,25 @@
 import React from 'react';
 import {useEasybase} from 'easybase-react';
+import { useState } from 'react';
 
 export default function AddPark(props) {
-     const {Frame, sync, useFrameEffect} = useEasybase();
-     /* useFrameEffect(() => {
-        //console.log("Frame data changed!");
-      }); */
+     const {Frame, sync} = useEasybase();
+     /* const [park, setPark] = useState({
+         latitude: 0,
+         longitude:0,
+         parkType: "",
+         parkName:"",
+     }); */
+     const [parkLatitude, setLatitude] = useState(0);
+     const [parkLongitude, setLongitude] = useState(0);
+     const [parkType, setType] = useState();
+     const [parkName, setParkName] = useState();
      const handleClick = () => {
         Frame().push({
-           lat:42,
-           lng:3,
+           lat:parkLatitude,
+           lng:parkLongitude,
            Type: "street",
-           Parkname:"coucou",
+           Parkname: parkName,
        })
        sync()
    }
@@ -19,15 +27,17 @@ export default function AddPark(props) {
   
     return ( // tout devra être plié et se déplier quand on clique sur le bouton
       <div>
-        <input type="text" placeholder="name"></input>
-        <input type="number" placeholder="latitude"></input>
-        <input type="number" placeholder="longitude"></input>
+        <input  onChange={ (event) => setParkName(event.target.value)} type="text" placeholder="name"></input>
+        <input type="number" placeholder="latitude" onChange={ (event) => setLatitude(event.target.value)}></input>
+        <input type="number" placeholder="longitude" onChange={ (event) => setLongitude(event.target.value)}></input>
         <select name="parkType" >
           <option value="">you can select multiple options</option>
           <option value="street">street</option>
           <option value="bowl">bowl</option>
         </select>
         <button onClick= {handleClick} >Add a skatepark</button> {/* voir pour modifier aussi*/}
+        <p>{parkLongitude}</p>
+        <p>{parkLatitude} </p>
       </div>
     )
   }
