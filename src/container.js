@@ -47,18 +47,9 @@ export default function Container() {
       zoom={7}
       onLoad={onLoad}
     >
-    {/* {Frame().map(ele => 
-       <InfoWindow 
-       position={{ lat: ele.localisation[0], lng: ele.localisation[1] }}>
-         <h3>{ele.parkname}</h3>
-       </InfoWindow>
-       
-     
-   )} */}
    <ParksInfoWindows/>
     </GoogleMap>
-    <AddPark passer la fonction qui a frame en props 
-    et tout virer dans addpark pour faire remonter ici />
+    <AddPark userPosition={center} />
         </div>
     )
 }

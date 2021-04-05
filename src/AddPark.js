@@ -4,40 +4,37 @@ import { useState } from 'react';
 
 export default function AddPark(props) {
      const {Frame, sync} = useEasybase();
-     /* const [park, setPark] = useState({
-         latitude: 0,
-         longitude:0,
-         parkType: "",
-         parkName:"",
-     }); */
+     
      const [parkLatitude, setLatitude] = useState(0);
      const [parkLongitude, setLongitude] = useState(0);
-     const [parkType, setType] = useState();
+     const [parkType, setParkType] = useState([]);
      const [parkName, setParkName] = useState();
+     
      const handleClick = () => {
         Frame().push({
            lat:parkLatitude,
            lng:parkLongitude,
-           Type: "street",
+           Type: parkType,
            Parkname: parkName,
        })
        sync()
    }
-  
-  
     return ( // tout devra être plié et se déplier quand on clique sur le bouton
       <div>
         <input  onChange={ (event) => setParkName(event.target.value)} type="text" placeholder="name"></input>
-        <input type="number" placeholder="latitude" onChange={ (event) => setLatitude(event.target.value)}></input>
-        <input type="number" placeholder="longitude" onChange={ (event) => setLongitude(event.target.value)}></input>
-        <select name="parkType" >
-          <option value="">you can select multiple options</option>
-          <option value="street">street</option>
-          <option value="bowl">bowl</option>
-        </select>
+        <input type="number" /* placeholder={parkLatitude} */ value={parkLatitude} onChange={ (event) => setLatitude(event.target.value)}></input>
+        <input type="number" placeholder={parkLongitude} value={parkLongitude} onChange={ (event) => setLongitude(event.target.value)}></input>
+        
+        <button onClick={() => { 
+            setLatitude(props.userPosition.lat)
+            setLongitude(props.userPosition.lng)} } >use my position</button>
+
+        <input type="checkbox" id= "street" value="street" onChange={(e) => setParkType([...parkType,e.target.value])}/>
+        <label for="street">Street</label>
+        <input type="checkbox" value="bowl" onChange={(e) => setParkType([...parkType,e.target.value])}/>
+        <label for="bowl">Bowl</label>
+
         <button onClick= {handleClick} >Add a skatepark</button> {/* voir pour modifier aussi*/}
-        <p>{parkLongitude}</p>
-        <p>{parkLatitude} </p>
       </div>
     )
   }
