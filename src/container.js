@@ -47,7 +47,7 @@ export default function Container() {
       zoom={7}
       onLoad={onLoad}
     >
-   <ParksInfoWindows/>
+   <ParksInfoWindows userPosition={center}/>
     </GoogleMap>
     <AddPark userPosition={center} />
         </div>

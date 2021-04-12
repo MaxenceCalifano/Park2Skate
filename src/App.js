@@ -10,10 +10,11 @@ import Container from './container';
 //import ParksInfoWindows from "./ParksInfoWindows"
 
 function App() {
-
+  const libraries = ["places"];
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_AUTH_TOKEN
+    googleMapsApiKey: process.env.REACT_APP_AUTH_TOKEN,
+    libraries:[...libraries],
   })
   //  return 
  // } //fin de rendereMap
