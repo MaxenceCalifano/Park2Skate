@@ -3,7 +3,7 @@
 
 const ebconfig = {
   "integration": "react-1-jLrALjdzbljMPa18q4KOnE5Rgg-KImv3g0dveqVCshbnMa7MVL4NTBvknT8AcLi2vneIqBntYxP3KbHr4FV2083g-PnekrXS8mTgbgQUVbOYLQYZv0T9WAvC",
-  "tt": "tt-1-pjqW-uZ5BGW36uSgRHDvp3ajFcfYh5aPt7zIYgl8vO0=",
+  "tt": "tt-1-JV1U7HbXnS4Kf-sO2AdoltvV4i09srWb3lR-SkTlKms=",
   "version": "2020-11-20"
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 //import {useEasybase} from 'easybase-react';
 //import {InfoWindow } from '@react-google-maps/api';
-import { GoogleMap } from '@react-google-maps/api'
+import { Marker, GoogleMap } from '@react-google-maps/api'
 import AddPark from './AddPark'
 import ParksInfoWindows from './ParksInfoWindows';
 
@@ -15,7 +15,7 @@ export default function Container() {
         lat: 35,
         lng: -105
       });
-    
+    const [markerPosition, setMarkerPosition] = useState(center);
       function getLocation() {
         function success(position) {
           setCenter({
@@ -48,8 +48,9 @@ export default function Container() {
       onLoad={onLoad}
     >
    <ParksInfoWindows userPosition={center}/>
+   <Marker position={markerPosition} animation={1}/>
     </GoogleMap>
-    <AddPark userPosition={center} />
+    <AddPark onMarkerchange={setMarkerPosition} userPosition={center} />
         </div>
     )
 }

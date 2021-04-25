@@ -1,7 +1,7 @@
 import './App.css';
 //import React, { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, InfoWindow } from '@react-google-maps/api';
-import { EasybaseProvider, useEasybase } from 'easybase-react';
+import { EasybaseProvider } from 'easybase-react';
 import ebconfig from './ebconfig.js';
 //import AddPark from "./AddPark";
 //import ParksInfoWindows from './ParksInfoWindows';
