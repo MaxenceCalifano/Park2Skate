@@ -3,6 +3,8 @@ import { useEasybase } from 'easybase-react';
 import { useState } from 'react';
 import { StandaloneSearchBox } from '@react-google-maps/api';
 import StreetOrPark from './StreetOrPark';
+import EditParkName from './EditParkName'
+
 
 let result = []; //will old the result of searchBox
 
@@ -13,7 +15,8 @@ export default function AddPark(props) {
   const [parkLongitude, setLongitude] = useState(0);
   const [parkType, setParkType] = useState([]);
   const [parkName, setParkName] = useState();
-  const [fieldsHiddenOrnot,setFieldsHidden] = useState()
+  //const [parkTypeDisplay, displayParkType] = useState(false)
+  const [actualStepOfAddPark, changeStep] = useState(1);
 
   const handleClick = () => {
     Frame().push({
@@ -39,23 +42,23 @@ export default function AddPark(props) {
       setLongitude(placeLng))
     props.onMarkerchange({ lat: placeLat(), lng: placeLng() })
   }
- 
-  return ( 
+
+  return (
     <div>
-      <button onClick={()=> setFieldsHidden(!fieldsHiddenOrnot)} >Ajouter un spot</button>
-      <StreetOrPark hidden={fieldsHiddenOrnot} parkType={parkType} setParkType={setParkType} />
+      {actualStepOfAddPark === 1 ? <button onClick={() => changeStep(actualStepOfAddPark+1)/* displayParkType(a => !a) */} >Ajouter un spot</button> : null}
+      
+      <StreetOrPark hidden={actualStepOfAddPark} parkType={parkType} setParkType={setParkType} changeStep={changeStep}/>
+      <EditParkName step={actualStepOfAddPark} setParkName={setParkName} changeStep={changeStep}/>
 
       <input type="number" /* placeholder={parkLatitude} */ value={parkLatitude} onChange={(event) => setLatitude(event.target.value)}></input>
       <input type="number" placeholder={parkLongitude} value={parkLongitude} onChange={(event) => setLongitude(event.target.value)}></input>
 
-      <input onChange={(event) => setParkName(event.target.value)} type="text" placeholder="name"></input>
 
+    
       <button onClick={() => { // Use my position button
         setLatitude(props.userPosition.lat)
         setLongitude(props.userPosition.lng)
       }} >use my position</button>
-
-      <button onClick={handleClick} >Add a skatepark</button> {/* voir pour modifier aussi*/}
 
       <StandaloneSearchBox
         onLoad={onLoad}
@@ -83,6 +86,7 @@ export default function AddPark(props) {
           }}
         />
       </StandaloneSearchBox>
+      <button onClick={handleClick} >Add a skatepark</button> {/* voir pour modifier aussi*/}
     </div>
   )
 }
