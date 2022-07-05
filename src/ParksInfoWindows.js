@@ -22,6 +22,7 @@ export default function ParksInfoWindows(props) {
         <InfoWindow
           position={{ lat: ele.lat, lng: ele.lng }} key={i}  >
           <div><h3>{ele.parkname} </h3>
+          <img src={ele.images}></img>
             <button>
               <a rel="noreferrer" target="_blank" href={`https://www.google.com/maps/dir/?api=1&origin=${props.userPosition.lat},${props.userPosition.lng}&destination=${ele.lat},${ele.lng}`}>
                 Itinéraire</a></button>
